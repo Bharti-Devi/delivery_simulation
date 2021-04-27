@@ -1,6 +1,6 @@
 #include "package_factory.h"
 #include "json_helper.h"
-#include "package.h"
+#include "basic_package.h"
 
 namespace csci3081 {
 
@@ -11,14 +11,14 @@ PackageFactory::PackageFactory()	{
 IEntity* PackageFactory::CreateEntity(const picojson::object& obj)	{
     entityCount++;
 
-    if (JsonHelper::GetString(obj,"type")!= "package")	{
+    if (JsonHelper::GetString(obj,"type") != "package")	{
         return NULL;
     }
 
     std::vector<float> position = JsonHelper::GetStdFloatVector(obj, "position");
     std::vector<float> direction = JsonHelper::GetStdFloatVector(obj, "direction");
     
-    return new Package(position, direction, obj, entityCount-1);
+    return new BasicPackage(position, direction, obj, entityCount-1);
 }
 
 }//namespace csci3081

@@ -1,13 +1,14 @@
 /**
- *@file basic_package.h
+ *@file package.h
  */
-#ifndef PACKAGE_H_
-#define PACKAGE_H_
+#ifndef BASIC_PACKAGE_H_
+#define BASIC_PACKAGE_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include "entity_base.h"
+#include "package.h"
 #include <vector>
 #include <string>
 
@@ -20,113 +21,128 @@ namespace csci3081 {
  *
  * Stores information on a specific Package object.
  */
-class Package : public EntityBase {
+class BasicPackage : public Package {
     public:
+        /**
+        * @brief Constructor: sets up Package by instantiating all of its values.
+        */
+        BasicPackage(std::vector<float> pos, std::vector<float> direction, const picojson::object& obj, int id);
         
         /**
         * @brief Destructor: deletes all allocated memory in Package by deleting these values.
         */
-        virtual ~Package() {};
+        ~BasicPackage();
         
         /**
         * @brief Gets the id of the package.
         *
         * @return Id value.
         */
-        virtual int GetId() const = 0;
+        int GetId() const override;
         
         /**
         * @brief Gets the name of the package.
         *
         * @return Name value.
         */
-        virtual const std::string& GetName() = 0;
+        const std::string& GetName() override;
         
         /**
         * @brief Gets the position of the package.
         *
         * @return Position vector.
         */
-        virtual const std::vector<float>& GetPosition() const = 0;
+        const std::vector<float>& GetPosition() const override;
         
         /**
         * @brief Gets the direction of the package.
         *
         * @return Direction vector.
         */
-        virtual const std::vector<float>& GetDirection() const = 0;
+        const std::vector<float>& GetDirection() const override;
         
         /**
         * @brief Gets the position of the package in a Vector3D.
         *
         * @return Vector3D of position.
         */
-        virtual Vector3D GetVectorPosition() = 0;
+        Vector3D GetVectorPosition() override;
         
         /**
         * @brief Gets the direction of the package in a Vector3D.
         *
         * @return Vector3D of direction.
         */
-        virtual Vector3D GetVectorDirection() = 0;
+        Vector3D GetVectorDirection() override;
         
         /**
         * @brief Gets the radius of the package.
         *
         * @return Radius value.
         */
-        virtual float GetRadius() const = 0;
+        float GetRadius() const override;
 
         /**
         * @brief Returns the version of the package.
         *
         * @return Version number.
         */
-        virtual int GetVersion() const = 0;
+        int GetVersion() const override;
 
         /**
         * @brief Sets the position of the package to the input value.
         *
         * @param newPosition Vector for position input.
         */
-        virtual void SetPosition(std::vector<float> newPosition) = 0;
+        void SetPosition(std::vector<float> newPosition) override;
         
         /**
         * @brief Checks if package is dynamic or not.
         *
         * @return True or false.
         */
-        virtual bool IsDynamic() const = 0;
+        bool IsDynamic() const override;
         
         /**
         * @brief Gets the version of the travel status of the package.
         *
         * @return True if moving with drone, or false if not with drone.
         */
-        virtual bool GetTravelStatus() = 0;
+        bool GetTravelStatus() override;
 
         /**
         * @brief Gets the version of the package.
         *
         * @return True or false.
         */
-        virtual bool GetDeliveryStatus() = 0;
+        bool GetDeliveryStatus() override;
 
         /**
         * @brief Sets the delivery status to the given value.
         * 
         * @param isTraveling True if traveling, False if not.
         */
-        virtual void SetTraveling(bool isTraveling) = 0;
+        void SetTraveling(bool isTraveling) override;
 
         /**
         * @brief Sets values as if a package was delivered.
         *
         * Sets travelStatus to false and deliveryStatus to true.
         */
-        virtual void Delivered() = 0;
+        void Delivered() override;
+
+    private:
+        std::vector<float> position;
+        std::vector<float> direction;
+        Vector3D* vectorPosition;
+        Vector3D* vectorDirection;
+        std::string name;
+        bool travelStatus;
+        bool deliveryStatus;
+        // float weight;
+        int id;
 };
 
 }//namespace csci3081
 
-#endif    // BASIC_PACKAGE_H_
+#endif    // PACKAGE_H_
