@@ -1,8 +1,8 @@
 /**
- *@file basic_package.h
+ *@file package_color_decorator.h
  */
-#ifndef BASIC_PACKAGE_H_
-#define BASIC_PACKAGE_H_
+#ifndef PACKAGE_COLOR_DECORATOR_H_
+#define PACKAGE_COLOR_DECORATOR_H_
 
 /*******************************************************************************
  * Includes
@@ -21,24 +21,36 @@ namespace csci3081 {
  *
  * Stores information on a specific Package object.
  */
-class BasicPackage : public Package {
+class PackageColorDecorator : public Package {
     public:
         /**
         * @brief Constructor: sets up Package by instantiating all of its values.
         */
-        BasicPackage(std::vector<float> pos, std::vector<float> direction, const picojson::object& obj, int id);
+        PackageColorDecorator(Package *package);
         
         /**
         * @brief Destructor: deletes all allocated memory in Package by deleting these values.
         */
-        ~BasicPackage();
+        ~PackageColorDecorator();
         
+        /**
+         * @brief Update package by coloring based on distance to customer
+         */
+        void Update(float dt) override; 
+
         /**
         * @brief Gets the id of the package.
         *
         * @return Id value.
         */
         int GetId() const override;
+
+        /**
+        * @brief Gets the details of the package.
+        *
+        * @return Details.
+        */
+        const picojson::object& GetDetails() override;
         
         /**
         * @brief Gets the name of the package.
@@ -132,15 +144,7 @@ class BasicPackage : public Package {
         void Delivered() override;
 
     private:
-        std::vector<float> position;
-        std::vector<float> direction;
-        Vector3D* vectorPosition;
-        Vector3D* vectorDirection;
-        std::string name;
-        bool travelStatus;
-        bool deliveryStatus;
-        // float weight;
-        int id;
+        Package *package;
 };
 
 }//namespace csci3081

@@ -36,7 +36,12 @@ class EntityBase : public IEntity {
  	 *
  	 * @return Details.
  	 */
-	const picojson::object& GetDetails() { return details_; }
+	virtual const picojson::object& GetDetails() { return details_; }
+
+	/**
+	 * @brief Update entity with timestep dt
+	 */
+	virtual void Update(float dt) {}
 
  protected:
  	picojson::object details_;

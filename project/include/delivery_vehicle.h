@@ -32,12 +32,6 @@ class DeliveryObject;
 */
 class DeliveryVehicle : public EntityBase {
     public:
-        /**
-         * @brief Movement and interaction happen here.
-         * 
-         * @param dt Amount of time to simulate movement.
-         */
-        virtual void Update(float dt) = 0;
 
         /**
          * @brief Return remaining battery charge.

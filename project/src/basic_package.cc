@@ -22,15 +22,15 @@ BasicPackage::~BasicPackage() {
     delete vectorDirection;
 }
 
-int BasicPackage::GetId() const  {
+int BasicPackage::GetId() const {
     return id;
 }
 
-const std::string& BasicPackage::GetName()   {
+const std::string& BasicPackage::GetName() {
     return name;
 }
 
-const std::vector<float>& BasicPackage::GetPosition() const  {
+const std::vector<float>& BasicPackage::GetPosition() const {
     return position;
 }
 
@@ -39,15 +39,15 @@ const std::vector<float>& BasicPackage::GetDirection() const {
 }
 
 
-Vector3D BasicPackage::GetVectorPosition()   {
+Vector3D BasicPackage::GetVectorPosition() {
     return *vectorPosition;
 }
 
-Vector3D BasicPackage::GetVectorDirection()  {
+Vector3D BasicPackage::GetVectorDirection() {
     return *vectorDirection;
 }
 
-float BasicPackage::GetRadius() const    {
+float BasicPackage::GetRadius() const {
     return 1.0;
 }
 
@@ -55,7 +55,7 @@ int BasicPackage::GetVersion() const {
     return 0.0;
 }
 
-void BasicPackage::SetPosition(std::vector<float> position)  {
+void BasicPackage::SetPosition(std::vector<float> position) {
     this->position = position;
     vectorPosition->SetVector(position);
 }
@@ -68,15 +68,15 @@ bool BasicPackage::GetTravelStatus() {
     return travelStatus;
 }
 
-bool BasicPackage::GetDeliveryStatus()   {
+bool BasicPackage::GetDeliveryStatus() {
     return deliveryStatus;
 }
 
-void BasicPackage::SetTraveling(bool isTraveling)    {
+void BasicPackage::SetTraveling(bool isTraveling) {
     travelStatus = isTraveling;
 }
 
-void BasicPackage::Delivered()   {
+void BasicPackage::Delivered() {
     deliveryStatus = true;
     travelStatus = false;
 }
