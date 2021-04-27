@@ -8,6 +8,7 @@
  * Includes
  ******************************************************************************/
 #include <EntityProject/facade/delivery_system.h>
+#include <vector>
 #include "vector3d.h"
 
 namespace csci3081 {
@@ -36,7 +37,21 @@ class EntityBase : public IEntity {
  	 *
  	 * @return Details.
  	 */
-	virtual const picojson::object& GetDetails() { return details_; }
+	virtual const picojson::object& GetDetails();
+
+	/**
+     * @brief Adds observers in delivery vehicles.
+     * 
+     * @param observer The observer object to be added.
+     */
+    static void Attach(IEntityObserver* observer);
+
+    /**
+     * @brief Removes observers from delivery vehicles.
+     * 
+     * @param observer The observer object to be removed.
+     */
+    static void Detach(IEntityObserver* observer);
 
 	/**
 	 * @brief Update entity with timestep dt
@@ -44,6 +59,7 @@ class EntityBase : public IEntity {
 	virtual void Update(float dt) {}
 
  protected:
+ 	static std::vector<IEntityObserver*> observers;
  	picojson::object details_;
 };
 
