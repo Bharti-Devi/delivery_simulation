@@ -52,12 +52,11 @@ void DeliverySimulation::SetGraph(const IGraph* graph) {
 
 void DeliverySimulation::ScheduleDelivery(IEntity* package, IEntity* dest) {
 	manager->ScheduleDelivery(package, dest);
-	//vehicle->NotifyPackage("scheduled", package);
 }
 
 void DeliverySimulation::AddObserver(IEntityObserver* observer) {
 	observers_.push_back(observer);
-	vehicle->Attach(observer);
+	DeliveryVehicle::Attach(observer);
 }
 
 void DeliverySimulation::RemoveObserver(IEntityObserver* observer) {
@@ -67,7 +66,7 @@ void DeliverySimulation::RemoveObserver(IEntityObserver* observer) {
       		return;
     	}
   	}
-	vehicle->Detach(observer);
+	DeliveryVehicle::Detach(observer);
 }
 
 const std::vector<IEntity*>& DeliverySimulation::GetEntities() const { return entities_; }
@@ -75,10 +74,9 @@ const std::vector<IEntity*>& DeliverySimulation::GetEntities() const { return en
 void DeliverySimulation::Update(float dt) {
 	//calls update on every drone.
 	for(int i = 0; i< entities_.size(); i++){
-		DeliveryVehicle* temp = dynamic_cast<DeliveryVehicle*>(entities_[i]);
+		EntityBase* temp = dynamic_cast<EntityBase*>(entities_[i]);
 		if (temp != nullptr){
-			vehicle = temp;
-			vehicle->Update(dt);
+			temp->Update(dt);
 		}
 	}
 }

@@ -121,7 +121,6 @@ class DeliverySimulation : public IDeliverySystem {
   DeliveryManager* manager;
   const IGraph* graph;
   std::vector<IEntityObserver*> observers_;
-  DeliveryVehicle* vehicle;
   CompositePathfinderFactory* pathfactory;
 };
 

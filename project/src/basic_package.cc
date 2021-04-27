@@ -1,9 +1,9 @@
-#include "package.h"
+#include "basic_package.h"
 #include "json_helper.h"
 
 namespace csci3081 {
 
-Package::Package(std::vector<float> pos, std::vector<float> direction, const picojson::object& obj, int id) {
+BasicPackage::BasicPackage(std::vector<float> pos, std::vector<float> direction, const picojson::object& obj, int id) {
     this->position = pos;
     this->direction = direction;
     this->vectorPosition = new Vector3D(pos);
@@ -17,66 +17,66 @@ Package::Package(std::vector<float> pos, std::vector<float> direction, const pic
     details_ = obj;
 }
 
-Package::~Package() {
+BasicPackage::~BasicPackage() {
     delete vectorPosition;
     delete vectorDirection;
 }
 
-int Package::GetId() const  {
+int BasicPackage::GetId() const {
     return id;
 }
 
-const std::string& Package::GetName()   {
+const std::string& BasicPackage::GetName() {
     return name;
 }
 
-const std::vector<float>& Package::GetPosition() const  {
+const std::vector<float>& BasicPackage::GetPosition() const {
     return position;
 }
 
-const std::vector<float>& Package::GetDirection() const {
+const std::vector<float>& BasicPackage::GetDirection() const {
     return direction;
 }
 
 
-Vector3D Package::GetVectorPosition()   {
+Vector3D BasicPackage::GetVectorPosition() {
     return *vectorPosition;
 }
 
-Vector3D Package::GetVectorDirection()  {
+Vector3D BasicPackage::GetVectorDirection() {
     return *vectorDirection;
 }
 
-float Package::GetRadius() const    {
+float BasicPackage::GetRadius() const {
     return 1.0;
 }
 
-int Package::GetVersion() const {
+int BasicPackage::GetVersion() const {
     return 0.0;
 }
 
-void Package::SetPosition(std::vector<float> position)  {
+void BasicPackage::SetPosition(std::vector<float> position) {
     this->position = position;
     vectorPosition->SetVector(position);
 }
 
-bool Package::IsDynamic() const {
+bool BasicPackage::IsDynamic() const {
     return true;
 }
 
-bool Package::GetTravelStatus() {
+bool BasicPackage::GetTravelStatus() {
     return travelStatus;
 }
 
-bool Package::GetDeliveryStatus()   {
+bool BasicPackage::GetDeliveryStatus() {
     return deliveryStatus;
 }
 
-void Package::SetTraveling(bool isTraveling)    {
+void BasicPackage::SetTraveling(bool isTraveling) {
     travelStatus = isTraveling;
 }
 
-void Package::Delivered()   {
+void BasicPackage::Delivered() {
     deliveryStatus = true;
     travelStatus = false;
 }
