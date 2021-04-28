@@ -67,20 +67,6 @@ class DeliveryVehicle : public EntityBase {
         virtual ~DeliveryVehicle() {}
 
         /**
-         * @brief Adds observers in delivery vehicles.
-         * 
-         * @param observer The observer object to be added.
-         */
-        static void Attach(IEntityObserver* observer);
-
-        /**
-         * @brief Removes observers from delivery vehicles.
-         * 
-         * @param observer The observer object to be removed.
-         */
-        static void Detach(IEntityObserver* observer);
-
-        /**
          * @brief Notifies observers that the package has been scheduled, picked up,
          * or dropped off.
          * 
@@ -105,10 +91,6 @@ class DeliveryVehicle : public EntityBase {
          * @param path Vector for vehicle's path
          */
         static void NotifyMovingVehicle(std::string event, IEntity* vehicle, std::vector<std::vector<float>> path);
-
-    private:
-        static std::vector<IEntityObserver*> list;
-
 };
 
 }  // namespace csci3081
