@@ -1,0 +1,7 @@
+April 2nd, 2021
+
+Worked with: Oliver Cuzzort
+
+Clarified where the notifications would be called for the package in the Update() function since him
+and James and implemented the Update() functions of Drone and Robot. Also, helped out with the logic 
+of how to make delivery_veicle have a refernce to the IEntityObservers list.

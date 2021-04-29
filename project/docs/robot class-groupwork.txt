@@ -1,0 +1,6 @@
+April 1st 2021
+Oliver Cuzzourt
+
+Was having trouble implementing update so that it would work with the delivery_manager and properly
+run multiple deliveries, so Oliver who was working on Delivery Manager helped with the working solution based off of
+what was already written.
