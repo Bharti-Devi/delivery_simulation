@@ -1,8 +1,8 @@
 /**
- *@file robot.h
+ *@file basic_robot.h
  */
-#ifndef ROBOT_H_
-#define ROBOT_H_
+#ifndef BASIC_ROBOT_H_
+#define BASIC_ROBOT_H_
 /*******************************************************************************
  * Includes
  ******************************************************************************/
@@ -13,6 +13,7 @@
 #include <string>
 #include "delivery_manager.h"
 #include "pathfinder.h"
+#include "robot.h"
 
 namespace csci3081 {
 /*******************************************************************************
@@ -24,75 +25,82 @@ namespace csci3081 {
  *  Stores information on a Robot object.
  */
 
-class Robot : public DeliveryVehicle{
-public:
+class BasicRobot : public Robot{
+  public:
+  
+  /**
+   * @brief Constructor: sets up Robot by instantiating all of its values.
+   */
+  BasicRobot(std::vector<float> pos, std::vector<float> direction, const picojson::object& obj, 
+        int id, DeliveryManager* manager, Pathfinder* strategy);
+  
   /**
    * @brief Destructor: deletes all allocated values.
    */
-  virtual ~Robot() {};
+  ~BasicRobot();
 
   /**
   * @brief Gets the id of the Robot.
   *
   * @return Id value.
   */
-  virtual int GetId() const = 0;
+  int GetId() const override;
 
   /**
   * @brief Gets the name of the Robot object.
   *
   * @return Name value.
   */
-  virtual const std::string& GetName() = 0;
+  const std::string& GetName() override;
 
   /**
   * @brief Gets the position of the Robot.
   *
   * @return Position vector.
   */
-  virtual const std::vector<float>& GetPosition() const = 0;
+  const std::vector<float>& GetPosition() const override;
   
   /**
   * @brief Gets the direction of the Robot.
   *
   * @return Direction vector.
   */
-  virtual const std::vector<float>& GetDirection() const = 0;
+  const std::vector<float>& GetDirection() const override;
 
   /**
   * @brief Gets the position of the robot as a Vector2D object pointer.
   *
   * @return Position Vector3D.
   */
-  virtual Vector3D GetVectorPosition() = 0;
+  Vector3D GetVectorPosition() override;
 
   /**
   * @brief Gets the direction of the robot as a Vector2D object pointer.
   *
   * @return Direction Vector3D.
   */
-  virtual Vector3D GetVectorDirection() = 0;
+  Vector3D GetVectorDirection() override;
 
   /**
   * @brief Gets the radius of the robot.
   *
   * @return Radius value.
   */
-  virtual float GetRadius() const = 0;
+  float GetRadius() const override;
 
   /**
   * @brief Gets the version of the robot.
   *
   * @return Version number.
   */
-  virtual int GetVersion() const = 0;
+  int GetVersion() const override;
 
   /**
   * @brief Checks if the robot is dynamic or not.
   *
   * @return True or false.
   */
-  virtual bool IsDynamic() const = 0;
+  bool IsDynamic() const override;
 
   /**
   * @brief Updates the robots location based on dt, its speed, and
@@ -113,19 +121,19 @@ public:
   *
   * @param dt Derivative.
   */
-  virtual void Update(float dt) = 0;
+  void Update(float dt) override;
 
   /**
    * @brief Checks if the Robot can pickup the package by calling PickUp()
    * on the DeliveryObject delivery.
    */
-  virtual void PickUp() = 0;
+  void PickUp() override;
 
   /**
    * @brief Checks if the robot can dropoff the package by calling DropOff()
    * on the DeliveryObject delivery.
    */
-  virtual void DropOff() = 0;
+  void DropOff() override;
 
   /**
    * @brief Gets the charge of the robots battery by calling 
@@ -133,14 +141,14 @@ public:
    * 
    * @return Charge amount.
    */
-  virtual int GetCharge() = 0;
+  int GetCharge() override;
 
   /**
    * @brief Sets the DeliveryObject* delivery to the given pointer.
    * 
    * @param delivery DeliveryObject*.
    */
-  virtual void SetDeliveryObject(DeliveryObject* delivery) = 0;
+  void SetDeliveryObject(DeliveryObject* delivery) override;
 
   /**
    * @brief Checks if the robot has been scheduled for a delivery
@@ -148,7 +156,7 @@ public:
    * 
    * @return True or false.
    */
-  virtual bool IsScheduled() = 0;
+  bool IsScheduled() override;
 
   /**
    * @brief Checks if the robot has a package in its possession
@@ -157,11 +165,29 @@ public:
    * @return True or false.
    */
 
-  virtual bool DoesHavePackage() = 0;
+  bool DoesHavePackage() override;
+
+  private:
+    std::vector<float> position;
+    std::vector<float> direction;
+    std::vector<float> destination;
+    Vector3D* vectorPosition;
+    Vector3D* vectorDirection;
+    DeliveryObject* delivery;
+    Battery battery;
+    std::string name;
+    float speed;
+    int id;
+    bool hasPackage;
+    bool scheduled;
+    DeliveryManager* manager;
+    std::vector< std::vector<float> > packagePath;
+    std::vector< std::vector<float> > customerPath;
+    Pathfinder* strategy;
  
 };
 
 
 }//namespace csci3081
 
-#endif    // ROBOT_H_
+#endif    // BASIC_ROBOT_H_

@@ -1,10 +1,10 @@
-#include "robot.h"
+#include "basic_robot.h"
 #include "json_helper.h"
 #include <iostream>
 
 namespace csci3081  {
 
-Robot::Robot(std::vector<float> pos, std::vector<float> direction, const picojson::object& details, 
+BasicRobot::BasicRobot(std::vector<float> pos, std::vector<float> direction, const picojson::object& details, 
             int id, DeliveryManager* manager, Pathfinder* strategy) {
   this->position = pos;
   this->direction = direction;
@@ -31,56 +31,59 @@ Robot::Robot(std::vector<float> pos, std::vector<float> direction, const picojso
   // The following line saves the json object in the details_ member variable
   // from the EntityBase class, in order to return it later in GetDetails()
   details_ = details;
+
+  JsonHelper::AddValueToJsonObject(details_, "color",  picojson::value("0x00ff00"));
+  NotifyBatteryColor("updateDetails", this, details_);
 }
 
-Robot::~Robot() {
+BasicRobot::~BasicRobot() {
   delete vectorPosition;
   delete vectorDirection;
 }
 
-int Robot::GetId() const {
+int BasicRobot::GetId() const {
   return id;
 }
 
-const std::string& Robot::GetName() {
+const std::string& BasicRobot::GetName() {
   return name;
 }
 
-const std::vector<float>& Robot::GetPosition() const {
+const std::vector<float>& BasicRobot::GetPosition() const {
   return position;
 }
 
-const std::vector<float>& Robot::GetDirection() const {
+const std::vector<float>& BasicRobot::GetDirection() const {
   return direction;
 }
 
-Vector3D Robot::GetVectorPosition() {
+Vector3D BasicRobot::GetVectorPosition() {
   return *vectorPosition;
 }
 
-Vector3D Robot::GetVectorDirection()  {
+Vector3D BasicRobot::GetVectorDirection()  {
  return *vectorDirection;
 }
 
-float Robot::GetRadius() const {
+float BasicRobot::GetRadius() const {
   // TODO: This is just a stub for compilation
   // Currently not in use.
   return 1;
 }
 
-int Robot::GetVersion() const {
+int BasicRobot::GetVersion() const {
   // TODO: This is just a stub for compilation
   // Currently not in use.
   return 0;
 }
 
-bool Robot::IsDynamic() const {
+bool BasicRobot::IsDynamic() const {
   // TODO: This is just a stub for compilation
   // Currently not in use.
   return true;
 }
 
-void Robot::Update(float dt)  {
+void BasicRobot::Update(float dt)  {
 
   // Ensure that this robot has some work to do. If not, return immediately.
   if (!scheduled) {
@@ -230,13 +233,13 @@ void Robot::Update(float dt)  {
   return;
 }
 
-void Robot::PickUp()  {
+void BasicRobot::PickUp()  {
   if (delivery->PickUp(position)) {
     hasPackage = true;
   }
 }
 
-void Robot::DropOff() {
+void BasicRobot::DropOff() {
   if (delivery->DropOff(position)) {
     hasPackage = false;
     scheduled = false;
@@ -244,22 +247,22 @@ void Robot::DropOff() {
   }
 }
 
-int Robot::GetCharge()  {
+int BasicRobot::GetCharge()  {
   return battery.GetCurCharge();
 }
 
-void Robot::SetDeliveryObject(DeliveryObject* delivery) {
+void BasicRobot::SetDeliveryObject(DeliveryObject* delivery) {
   this->delivery = delivery;
   this->packagePath = manager->GetGraph()->GetPath(delivery->GetPackagePosition(), position);
   this->customerPath = manager->GetGraph()->GetPath(delivery->GetCustomerPosition(), delivery->GetPackagePosition());
   scheduled = true;
 }
 
-bool Robot::IsScheduled() {
+bool BasicRobot::IsScheduled() {
   return scheduled;
 }
 
-bool Robot::DoesHavePackage() {
+bool BasicRobot::DoesHavePackage() {
   return hasPackage;
 }
 

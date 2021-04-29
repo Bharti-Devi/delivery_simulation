@@ -33,7 +33,7 @@ BasicDrone::BasicDrone(std::vector<float> pos, std::vector<float> direction, con
   details_ = details;
 
   JsonHelper::AddValueToJsonObject(details_, "color",  picojson::value("0x00ff00"));
-  NotifyDroneColor("updateDetails", this, details_);
+  NotifyBatteryColor("updateDetails", this, details_);
 
 }
 

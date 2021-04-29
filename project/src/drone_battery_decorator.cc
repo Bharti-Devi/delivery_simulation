@@ -86,22 +86,22 @@ void DroneBatteryDecorator::Update(float dt)  {
   //update battery color if battery charge reaches a point where color should change
   if(red && !isRed){
     details_["color"] = picojson::value("0xff0000");
-    NotifyDroneColor("updateDetails", decoratedDrone, details_);
+    NotifyBatteryColor("updateDetails", decoratedDrone, details_);
     isRed = red;
   }
   else if(orange && !isOrange){
     details_["color"] = picojson::value("0xffa500");
-    NotifyDroneColor("updateDetails", decoratedDrone, details_);
+    NotifyBatteryColor("updateDetails", decoratedDrone, details_);
     isOrange = orange;
   }
   else if (yellow && !isYellow){
     details_["color"] = picojson::value("0xffff00");
-    NotifyDroneColor("updateDetails", decoratedDrone, details_);
+    NotifyBatteryColor("updateDetails", decoratedDrone, details_);
     isYellow = yellow;
   }
   else if(green && !isGreen){
     details_["color"] = picojson::value("0x00ff00");
-    NotifyDroneColor("updateDetails", decoratedDrone, details_);
+    NotifyBatteryColor("updateDetails", decoratedDrone, details_);
     isGreen = green;
   }
 }
