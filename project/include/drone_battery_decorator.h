@@ -51,7 +51,7 @@ public:
  *
  * @return Details.
  */
-const picojson::object& GetDetails() override;
+ const picojson::object& GetDetails() override;
   
   /**
   * @brief Gets the name of the drone.
@@ -174,12 +174,12 @@ const picojson::object& GetDetails() override;
   bool DoesHavePackage() override;
 
 private:
-    Drone *decoratedDrone;
-    bool isRed;
-    bool isOrange;
-    bool isYellow;
-    bool isGreen;
-    double batteryCapacity;
+  Drone *decoratedDrone;
+  bool isRed;
+  bool isOrange;
+  bool isYellow;
+  bool isGreen;
+  double batteryCapacity;
 };
 
 }  // namespace csci3081

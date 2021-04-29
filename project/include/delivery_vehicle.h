@@ -96,11 +96,12 @@ class DeliveryVehicle : public EntityBase {
          * @brief Notifies observers that the details_ object in drone has been updated
          * 
          * @param event Event as a string that indicates which notification to send.
-         * @param package Vehicle Entity.
-         * @param details
+         * @param vehicle Vehicle Entity.
+         * @param details picojson object storing the entity details
          */
-        static void NotifyDroneColor(std::string event, IEntity* drone, picojson::object& details);
-};
+        static void NotifyBatteryColor(std::string event, IEntity* vehicle, picojson::object& details);
+        
+        };
 
 }  // namespace csci3081
 

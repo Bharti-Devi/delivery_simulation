@@ -1,6 +1,7 @@
 #include "robot_factory.h"
 #include "json_helper.h"
-#include "robot.h"
+#include "basic_robot.h"
+#include "robot_battery_decorator.h"
 
 namespace csci3081 {
 
@@ -20,7 +21,7 @@ IEntity* RobotFactory::CreateEntity(const picojson::object& obj)    {
     std::vector<float> position = JsonHelper::GetStdFloatVector(obj, "position");
     std::vector<float> direction = JsonHelper::GetStdFloatVector(obj, "direction");
     
-    return new Robot(position, direction, obj, entityCount-1, manager, pathfactory->CreatePathfinder("smart"));
+    return new RobotBatteryDecorator(new BasicRobot(position, direction, obj, entityCount-1, manager, pathfactory->CreatePathfinder("smart")));
 }
 
 }//namespace csci3081
