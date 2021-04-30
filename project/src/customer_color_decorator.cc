@@ -6,6 +6,8 @@ namespace csci3081	{
 CustomerColorDecorator::CustomerColorDecorator(Customer *customer)	{
 	this->customer = customer;
 
+	timer = 0;
+
 	// Initialize customer color to green
 	SetDetailsKey("color", picojson::value("0x00ff00"));
 	NotifyDetailsUpdate(); 
@@ -19,10 +21,12 @@ void CustomerColorDecorator::Update(float dt)	{
 	customer->Update(dt);
 
 	// TODO: add dt to time var
+	timer += dt;
 
 	// TODO: change to red
 
     // cout time var
+    std::cout << "Time: " << timer << "\n" << std::endl;
 }
 
 const picojson::object& CustomerColorDecorator::GetDetails() {
@@ -76,7 +80,11 @@ bool CustomerColorDecorator::IsDynamic() const	{
 void CustomerColorDecorator::RecievePackage()	{
 	customer->RecievePackage();
 	// TODO: change color back to green
+	SetDetailsKey("color", picojson::value("0x00ff00"));
+	NotifyDetailsUpdate();
+
 	// TODO: change time back to 0
+	timer = 0;
 }
 
 }
