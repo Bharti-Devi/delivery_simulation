@@ -8,6 +8,7 @@
  * Includes
  ******************************************************************************/
 #include "entity_base.h"
+#include "customer.h"
 #include "package.h"
 #include <vector>
 #include <string>
@@ -131,6 +132,18 @@ class BasicPackage : public Package {
         */
         void Delivered() override;
 
+        /**
+         * @brief Returns Customer to be delivered to, if assigned; else NULL.
+         */
+        Customer* GetCustomer() override;
+
+        /**
+         * @brief Sets Customer to be delivered to.
+         * 
+         * @param customer Customer to be delivered to.
+         */
+        void SetCustomer(Customer *customer) override;
+
     private:
         std::vector<float> position;
         std::vector<float> direction;
@@ -139,7 +152,7 @@ class BasicPackage : public Package {
         std::string name;
         bool travelStatus;
         bool deliveryStatus;
-        // float weight;
+        Customer *customer;
         int id;
 };
 

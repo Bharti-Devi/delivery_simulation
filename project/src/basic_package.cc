@@ -81,4 +81,12 @@ void BasicPackage::Delivered() {
     travelStatus = false;
 }
 
+Customer* BasicPackage::GetCustomer() {
+    return customer;
+}
+
+void BasicPackage::SetCustomer(Customer *customer) {
+    this->customer = customer;
+}
+
 }//namespace csci3081

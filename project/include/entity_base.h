@@ -10,6 +10,7 @@
 #include <EntityProject/facade/delivery_system.h>
 #include <vector>
 #include "vector3d.h"
+#include "json_helper.h"
 
 namespace csci3081 {
 
@@ -54,13 +55,31 @@ class EntityBase : public IEntity {
     static void Detach(IEntityObserver* observer);
 
 	/**
+	 * @brief Set some key in the details of the entity
+	 * 
+	 * @param key Key to set
+	 * 
+	 * @param value Value to set key to
+	 */
+	virtual void SetDetailsKey(const std::string& key, const picojson::value& value);
+
+	/**
+	 * @brief Notify all observers that the details of this entity have changed
+	 */
+	virtual void NotifyDetailsUpdate();
+
+	/**
 	 * @brief Update entity with timestep dt
 	 */
 	virtual void Update(float dt) {}
 
+	// Details of object. Moved to public because base classes don't trust derived classes to access their protected members,
+	// and this got in the way of decorator pattern implementation ;(
+	// picojson::object details_;
+
  protected:
  	static std::vector<IEntityObserver*> observers;
- 	picojson::object details_;
+	picojson::object details_;
 };
 
 }  // namespace csci3081
