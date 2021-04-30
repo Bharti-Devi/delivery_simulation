@@ -20,7 +20,7 @@ namespace csci3081 {
 /**
  * @brief 
  */
-class CustomerColorDecorator : public Customer {
+class CustomerColorDecorator : public Customer  {
 
     public:
         /**

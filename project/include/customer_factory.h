@@ -10,7 +10,7 @@
 #include <EntityProject/entity_factory.h>
 #include "entity_base.h"
 
-namespace csci3081 {
+namespace csci3081  {
 /*******************************************************************************
 * Class Definitions
 ******************************************************************************/

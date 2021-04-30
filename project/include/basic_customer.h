@@ -63,6 +63,7 @@ private:
     Vector3D* vectorPosition;
     Vector3D* vectorDirection;
     std::string name;
+    bool havePackage;
     int id;
     
 };

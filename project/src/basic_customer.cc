@@ -10,6 +10,7 @@ BasicCustomer::BasicCustomer(std::vector<float> position, std::vector<float> dir
     this->vectorDirection = new Vector3D(direction);
 
     name = "customer";
+    havePackage = false;
     this->id = id;
 
     details_ = obj;
@@ -49,8 +50,7 @@ float BasicCustomer::GetRadius() const    {
 }
 
 bool BasicCustomer::GetHavePackage()   {
-    // TODO: replace
-    return false;
+    return havePackage;
 }
 
 int BasicCustomer::GetVersion() const  {
@@ -62,7 +62,7 @@ bool BasicCustomer::IsDynamic() const  {
 }
 
 void BasicCustomer::RecievePackage()   {
-    //
+    havePackage = true;
 }
 
 }//namespace csci3081

@@ -23,6 +23,7 @@ namespace csci3081 {
  */
 class Customer : public EntityBase {
     public:
+        
         /**
         * @brief Destructor: deletes all allocated memory in Customer by deleting these values.
         *

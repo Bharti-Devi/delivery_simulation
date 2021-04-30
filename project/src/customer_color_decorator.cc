@@ -24,10 +24,12 @@ void CustomerColorDecorator::Update(float dt)	{
 	// Customer goes red if waiting a long time
 	if (( (timer_end - timer_start) / (double) CLOCKS_PER_SEC) > 15)	{
 		details_["color"] = picojson::value("0xff0000");
+		NotifyDetailsUpdate();
 	}
 	// Customer goes blue if waiting a while
 	else if (( (timer_end - timer_start) / (double) CLOCKS_PER_SEC) > 7)	{
 		details_["color"] = picojson::value("0x0000ff");
+		NotifyDetailsUpdate();
 	}
 }
 
