@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include <EntityProject/project_settings.h>
-#include "../include/customer.h"
+#include "../include/basic_customer.h"
 #include "../include/basic_package.h"
 #include "../include/delivery_vehicle.h"
 #include "../include/delivery_object.h"
@@ -24,9 +24,9 @@ class SimpleDeliveryManagerTest : public ::testing::Test {
             p1 = new BasicPackage(zeroVect, zeroVect, details, 0);
             p2 = new BasicPackage(zeroVect, zeroVect, details, 0);
             p3 = new BasicPackage(zeroVect, zeroVect, details, 0);
-            c1 = new Customer(zeroVect, zeroVect, details, 0);
-            c2 = new Customer(zeroVect, zeroVect, details, 0);
-            c3 = new Customer(zeroVect, zeroVect, details, 0);
+            c1 = new BasicCustomer(zeroVect, zeroVect, details, 0);
+            c2 = new BasicCustomer(zeroVect, zeroVect, details, 0);
+            c3 = new BasicCustomer(zeroVect, zeroVect, details, 0);
             deliveryVehicle = nullptr;
         }
 
