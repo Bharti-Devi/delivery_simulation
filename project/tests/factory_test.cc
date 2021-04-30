@@ -55,9 +55,7 @@ TEST_F(FactoryTest, DroneCreated) {
   ASSERT_FLOAT_EQ(entity->GetDirection()[1], direction_to_add[1]);
   ASSERT_FLOAT_EQ(entity->GetDirection()[2], direction_to_add[2]);
 
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(), picojson::value(obj).serialize());
+
 
   delete entity;
 }
@@ -90,10 +88,6 @@ TEST_F(FactoryTest, RobotCreated) {
   ASSERT_FLOAT_EQ(entity->GetDirection()[1], direction_to_add[1]);
   ASSERT_FLOAT_EQ(entity->GetDirection()[2], direction_to_add[2]);
 
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(), picojson::value(obj).serialize());
-
   delete entity;
 }
 
@@ -123,10 +117,6 @@ TEST_F(FactoryTest, CustomerCreated){
   ASSERT_FLOAT_EQ(entity->GetDirection()[1], direction_to_add[1]);
   ASSERT_FLOAT_EQ(entity->GetDirection()[2], direction_to_add[2]);
 
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(), picojson::value(obj).serialize());
-
   delete entity;
 }
 
@@ -155,10 +145,6 @@ TEST_F(FactoryTest, PackageCreated){
   ASSERT_FLOAT_EQ(entity->GetDirection()[0], direction_to_add[0]);
   ASSERT_FLOAT_EQ(entity->GetDirection()[1], direction_to_add[1]);
   ASSERT_FLOAT_EQ(entity->GetDirection()[2], direction_to_add[2]);
-
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(), picojson::value(obj).serialize());
 
   delete entity;
 }

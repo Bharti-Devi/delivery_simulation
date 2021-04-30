@@ -59,10 +59,6 @@ TEST_F(CompositeFactoryTest, AddAndUseFactory){
 
   EXPECT_EQ("customer", entity1->GetName());
 
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(entity1->GetDetails()).serialize(), picojson::value(obj1).serialize());
-
   picojson::object obj2 = JsonHelper::CreateJsonObject();
   JsonHelper::AddStringToJsonObject(obj2, "name", "drone");
   JsonHelper::AddStringToJsonObject(obj2, "type", "drone");
@@ -90,10 +86,6 @@ TEST_F(CompositeFactoryTest, AddAndUseFactory){
 
   EXPECT_EQ("drone", entity2->GetName());
 
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(entity2->GetDetails()).serialize(), picojson::value(obj2).serialize());
-
   picojson::object obj3 = JsonHelper::CreateJsonObject();
   JsonHelper::AddStringToJsonObject(obj3, "type", "package");
   std::vector<float> position_to_add3;
@@ -118,10 +110,6 @@ TEST_F(CompositeFactoryTest, AddAndUseFactory){
   ASSERT_FLOAT_EQ(entity3->GetDirection()[2], direction_to_add3[2]);
 
   EXPECT_EQ("package", entity3->GetName());
-
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(entity3->GetDetails()).serialize(), picojson::value(obj3).serialize());
 
   picojson::object obj4 = JsonHelper::CreateJsonObject();
   JsonHelper::AddStringToJsonObject(obj4, "name", "robot");
@@ -149,10 +137,6 @@ TEST_F(CompositeFactoryTest, AddAndUseFactory){
   ASSERT_FLOAT_EQ(entity4->GetDirection()[2], direction_to_add4[2]);
 
   EXPECT_EQ("robot", entity4->GetName());
-
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(entity4->GetDetails()).serialize(), picojson::value(obj4).serialize());
 
   delete entity1;
   delete entity2;

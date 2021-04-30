@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include <EntityProject/project_settings.h>
-#include "../include/package.h"
+#include "../include/basic_package.h"
 #include <EntityProject/entity.h>
 #include "json_helper.h"
 
@@ -11,7 +11,7 @@ namespace csci3081 {
 
 using entity_project::IEntity;
 
-class PackageTest : public ::testing::Test {
+class BasicPackageTest : public ::testing::Test {
   protected:
     virtual void SetUp() {
       picojson::object obj = JsonHelper::CreateJsonObject();
@@ -27,7 +27,7 @@ class PackageTest : public ::testing::Test {
       direction_to_add.push_back(0);
       direction_to_add.push_back(0);
       JsonHelper::AddStdFloatVectorToJsonObject(obj, "direction", direction_to_add);
-      entity = new Package(position_to_add, direction_to_add, obj, 0);
+      entity = new BasicPackage(position_to_add, direction_to_add, obj, 0);
       //Object 2
       JsonHelper::AddStringToJsonObject(obj2, "type", "package");
       position_to_add2.push_back(200.1);
@@ -38,7 +38,7 @@ class PackageTest : public ::testing::Test {
       direction_to_add2.push_back(1);
       direction_to_add2.push_back(0);
       JsonHelper::AddStdFloatVectorToJsonObject(obj2, "direction", direction_to_add2);
-      entity2 = new Package(position_to_add2, direction_to_add2, obj2, 1);
+      entity2 = new BasicPackage(position_to_add2, direction_to_add2, obj2, 1);
       //Object 3
       JsonHelper::AddStringToJsonObject(obj2, "type", "package");
       position_to_add3.push_back(0);
@@ -49,7 +49,7 @@ class PackageTest : public ::testing::Test {
       direction_to_add3.push_back(263.32);
       direction_to_add3.push_back(12.01);
       JsonHelper::AddStdFloatVectorToJsonObject(obj3, "direction", direction_to_add3);
-      entity3 = new Package(position_to_add3, direction_to_add3, obj3, 2);
+      entity3 = new BasicPackage(position_to_add3, direction_to_add3, obj3, 2);
     }
     virtual void TearDown() {
       delete entity;
@@ -69,7 +69,7 @@ class PackageTest : public ::testing::Test {
   
 };
 
-TEST_F(PackageTest, ConstructorTest){
+TEST_F(BasicPackageTest, ConstructorTest){
   //GetID
   EXPECT_EQ(entity->GetId(),0);
   EXPECT_EQ(entity2->GetId(),1);
@@ -128,7 +128,7 @@ TEST_F(PackageTest, ConstructorTest){
   EXPECT_EQ(entity3->GetName(), "package");
 }
 
-TEST_F(PackageTest, SettersTest){
+TEST_F(BasicPackageTest, SettersTest){
   //Extra Vectors for Testing.
   std::vector<float> position_to_change1;
   position_to_change1.push_back(0);
@@ -191,7 +191,7 @@ TEST_F(PackageTest, SettersTest){
   EXPECT_EQ(entity2->GetVectorPosition().GetZ(), position_to_change3[2]);
 }
 
-TEST_F(PackageTest, TravelAndDeliveredTest){
+TEST_F(BasicPackageTest, TravelAndDeliveredTest){
 
   entity->SetTraveling(true);
   EXPECT_EQ(entity->GetTravelStatus(), true);

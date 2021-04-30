@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <EntityProject/project_settings.h>
 #include "../include/customer.h"
-#include "../include/package.h"
+#include "../include/basic_package.h"
 #include "../include/delivery_vehicle.h"
 #include "../include/delivery_object.h"
 #include "../include/simple_delivery_manager.h"
@@ -21,9 +21,9 @@ class SimpleDeliveryManagerTest : public ::testing::Test {
         virtual void SetUp() {
             std::vector<float> zeroVect = {0,0,0};
             picojson::object details = JsonHelper::CreateJsonObject();
-            p1 = new Package(zeroVect, zeroVect, details, 0);
-            p2 = new Package(zeroVect, zeroVect, details, 0);
-            p3 = new Package(zeroVect, zeroVect, details, 0);
+            p1 = new BasicPackage(zeroVect, zeroVect, details, 0);
+            p2 = new BasicPackage(zeroVect, zeroVect, details, 0);
+            p3 = new BasicPackage(zeroVect, zeroVect, details, 0);
             c1 = new Customer(zeroVect, zeroVect, details, 0);
             c2 = new Customer(zeroVect, zeroVect, details, 0);
             c3 = new Customer(zeroVect, zeroVect, details, 0);
@@ -41,9 +41,9 @@ class SimpleDeliveryManagerTest : public ::testing::Test {
 
         SimpleDeliveryManager deliveryManager;
         DeliveryVehicle* deliveryVehicle;
-        Package* p1;
-        Package* p2;
-        Package* p3;
+        BasicPackage* p1;
+        BasicPackage* p2;
+        BasicPackage* p3;
         Customer* c1;
         Customer* c2;
         Customer* c3;
