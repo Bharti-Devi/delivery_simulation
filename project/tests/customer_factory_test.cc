@@ -45,9 +45,6 @@ TEST_F(CustomerFactoryTest, CustomerCreated){
   ASSERT_FLOAT_EQ(entity->GetDirection()[1], direction_to_add[1]);
   ASSERT_FLOAT_EQ(entity->GetDirection()[2], direction_to_add[2]);
 
-  // Checks that when GetDetails() is called, the entity returns 
-  //  the picojson object that was used to initialize it
-  ASSERT_EQ(picojson::value(entity->GetDetails()).serialize(), picojson::value(obj).serialize());
   delete entity;
 }
 

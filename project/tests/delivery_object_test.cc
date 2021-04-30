@@ -2,6 +2,7 @@
 #include <EntityProject/project_settings.h>
 #include "../include/delivery_object.h"
 #include "../include/basic_package.h"
+#include "../include/basic_customer.h"
 #include <EntityProject/entity.h>
 #include "json_helper.h"
 
@@ -26,7 +27,7 @@ class DeliveryObjectTest: public ::testing::Test {
         cdirection_to_add1.push_back(0);
         cdirection_to_add1.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(cobj1, "direction", cdirection_to_add1);
-        c1 = new Customer(cposition_to_add1, cdirection_to_add1, cobj1, 0);
+        c1 = new BasicCustomer(cposition_to_add1, cdirection_to_add1, cobj1, 0);
         //Customer 2
         JsonHelper::AddStringToJsonObject(cobj2, "type", "customer");
         std::vector<float> cposition_to_add2;
@@ -39,7 +40,7 @@ class DeliveryObjectTest: public ::testing::Test {
         cdirection_to_add2.push_back(1);
         cdirection_to_add2.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(cobj2, "direction", cdirection_to_add2);
-        c2 = new Customer(cposition_to_add2, cdirection_to_add2, cobj2, 1);
+        c2 = new BasicCustomer(cposition_to_add2, cdirection_to_add2, cobj2, 1);
         //Customer 3
         JsonHelper::AddStringToJsonObject(cobj3, "type", "customer");
         std::vector<float> cposition_to_add3;
@@ -52,7 +53,7 @@ class DeliveryObjectTest: public ::testing::Test {
         cdirection_to_add3.push_back(263.32);
         cdirection_to_add3.push_back(12.01);
         JsonHelper::AddStdFloatVectorToJsonObject(cobj3, "direction", cdirection_to_add3);
-        c3 = new Customer(cposition_to_add3, cdirection_to_add3, cobj3, 2);
+        c3 = new BasicCustomer(cposition_to_add3, cdirection_to_add3, cobj3, 2);
 
         //Packages
 

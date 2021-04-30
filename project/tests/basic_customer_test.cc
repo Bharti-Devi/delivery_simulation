@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include <EntityProject/project_settings.h>
-#include "../include/customer.h"
+#include "../include/basic_customer.h"
 #include <EntityProject/entity.h>
 #include "json_helper.h"
 
@@ -11,7 +11,7 @@ namespace csci3081 {
 
 using entity_project::IEntity;
 
-class CustomerTest: public ::testing::Test {
+class BasicCustomerTest: public ::testing::Test {
   protected:
       virtual void SetUp(){
         picojson::object obj = JsonHelper::CreateJsonObject();
@@ -27,7 +27,7 @@ class CustomerTest: public ::testing::Test {
         direction_to_add.push_back(0);
         direction_to_add.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(obj, "direction", direction_to_add);
-        entity = new Customer(position_to_add, direction_to_add, obj, 0);
+        entity = new BasicCustomer(position_to_add, direction_to_add, obj, 0);
         //Object 2
         JsonHelper::AddStringToJsonObject(obj2, "type", "customer");
         position_to_add2.push_back(200.1);
@@ -38,7 +38,7 @@ class CustomerTest: public ::testing::Test {
         direction_to_add2.push_back(1);
         direction_to_add2.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(obj2, "direction", direction_to_add2);
-        entity2 = new Customer(position_to_add2, direction_to_add2, obj2, 1);
+        entity2 = new BasicCustomer(position_to_add2, direction_to_add2, obj2, 1);
         //Object 3
         JsonHelper::AddStringToJsonObject(obj3, "type", "customer");
         position_to_add3.push_back(0);
@@ -49,7 +49,7 @@ class CustomerTest: public ::testing::Test {
         direction_to_add3.push_back(263.32);
         direction_to_add3.push_back(12.01);
         JsonHelper::AddStdFloatVectorToJsonObject(obj3, "direction", direction_to_add3);
-        entity3 = new Customer(position_to_add3, direction_to_add3, obj3, 2);
+        entity3 = new BasicCustomer(position_to_add3, direction_to_add3, obj3, 2);
       }
 
       virtual void TearDown(){
@@ -69,7 +69,7 @@ class CustomerTest: public ::testing::Test {
       Customer* entity3;
 };
 
-TEST_F(CustomerTest, ConstructorTest){
+TEST_F(BasicCustomerTest, ConstructorTest){
   //GetId
   EXPECT_EQ(entity->GetId(),0);
   EXPECT_EQ(entity2->GetId(),1);
@@ -137,7 +137,7 @@ TEST_F(CustomerTest, ConstructorTest){
 
 }
 
-TEST_F(CustomerTest, RecievePackageTest){
+TEST_F(BasicCustomerTest, RecievePackageTest){
   //test entity
   EXPECT_EQ(entity->GetHavePackage(), false);
   entity->RecievePackage();
