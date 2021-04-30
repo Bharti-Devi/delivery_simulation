@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include <EntityProject/project_settings.h>
 #include "../include/delivery_object.h"
+#include "../include/basic_package.h"
 #include <EntityProject/entity.h>
 #include "json_helper.h"
 
@@ -70,7 +71,7 @@ class DeliveryObjectTest: public ::testing::Test {
         pdirection_to_add1.push_back(0);
         pdirection_to_add1.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(pobj1, "direction", pdirection_to_add1);
-        p1 = new Package(pposition_to_add1, pdirection_to_add1, pobj1, 0);
+        p1 = new BasicPackage(pposition_to_add1, pdirection_to_add1, pobj1, 0);
         //Package 2
         JsonHelper::AddStringToJsonObject(pobj2, "type", "package");
         std::vector<float> pposition_to_add2;
@@ -83,7 +84,7 @@ class DeliveryObjectTest: public ::testing::Test {
         pdirection_to_add2.push_back(0);
         pdirection_to_add2.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(pobj2, "direction", pdirection_to_add2);
-        p2 = new Package(pposition_to_add2, pdirection_to_add2, pobj2, 0);
+        p2 = new BasicPackage(pposition_to_add2, pdirection_to_add2, pobj2, 0);
         //Package 3
         JsonHelper::AddStringToJsonObject(pobj3, "type", "package");
         std::vector<float> pposition_to_add3;
@@ -96,7 +97,7 @@ class DeliveryObjectTest: public ::testing::Test {
         pdirection_to_add3.push_back(0);
         pdirection_to_add3.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(pobj3, "direction", pdirection_to_add3);
-        p3 = new Package(pposition_to_add3, pdirection_to_add3, pobj3, 0);
+        p3 = new BasicPackage(pposition_to_add3, pdirection_to_add3, pobj3, 0);
 
         d1 = new DeliveryObject(p1, c1);
         d2 = new DeliveryObject(p2, c2);

@@ -3,8 +3,9 @@
 #include "../include/delivery_vehicle.h"
 #include <EntityProject/entity.h>
 #include "json_helper.h"
-#include "drone.h"
-#include "robot.h"
+#include "basic_drone.h"
+#include "basic_robot.h"
+#include "basic_package.h"
 #include "simple_delivery_manager.h"
 #include "../include/parabolic_pathfinder.h"
 #include "../include/smart_pathfinder.h"
@@ -30,7 +31,7 @@ class DeliveryVehicleTest: public ::testing::Test {
         direction_to_add1.push_back(0);
         direction_to_add1.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(obj1, "direction", direction_to_add1);
-        entity1 = new Drone(position_to_add1, direction_to_add1, obj1, 0, manager, new ParabolicPathfinder());
+        entity1 = new BasicDrone(position_to_add1, direction_to_add1, obj1, 0, manager, new ParabolicPathfinder());
         //package
         JsonHelper::AddStringToJsonObject(obj2, "type", "package");
         position_to_add2.push_back(200.1);
@@ -41,7 +42,7 @@ class DeliveryVehicleTest: public ::testing::Test {
         direction_to_add2.push_back(1);
         direction_to_add2.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(obj2, "direction", direction_to_add2);
-        entity2 = new Package(position_to_add2, direction_to_add2, obj2, 1);
+        entity2 = new BasicPackage(position_to_add2, direction_to_add2, obj2, 1);
         //robot
         JsonHelper::AddStringToJsonObject(obj3, "name", "robot");
         JsonHelper::AddStringToJsonObject(obj3, "type", "robot");
@@ -54,7 +55,7 @@ class DeliveryVehicleTest: public ::testing::Test {
         direction_to_add3.push_back(0);
         direction_to_add3.push_back(0);
         JsonHelper::AddStdFloatVectorToJsonObject(obj3, "direction", direction_to_add3);
-        entity3 = new Robot(position_to_add3, direction_to_add3, obj3, 2, manager, new SmartPathfinder(graph));
+        entity3 = new BasicRobot(position_to_add3, direction_to_add3, obj3, 2, manager, new SmartPathfinder(graph));
     }
     virtual void TearDown(){
         delete entity1;

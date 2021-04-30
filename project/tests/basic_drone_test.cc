@@ -4,12 +4,13 @@
 #include <EntityProject/entity.h>
 #include "json_helper.h"
 #include "simple_delivery_manager.h"
+#include "basic_drone.h"
 #include "../include/parabolic_pathfinder.h"
 
 
 namespace csci3081 {
 
-class DroneTest: public ::testing::Test {
+class BasicDroneTest: public ::testing::Test {
   protected:
     virtual void SetUp(){
       manager = new SimpleDeliveryManager();
@@ -28,7 +29,7 @@ class DroneTest: public ::testing::Test {
       direction_to_add1.push_back(0);
       direction_to_add1.push_back(0);
       JsonHelper::AddStdFloatVectorToJsonObject(obj1, "direction", direction_to_add1);
-      entity1 = new Drone(position_to_add1, direction_to_add1, obj1, 0, manager, new ParabolicPathfinder());
+      entity1 = new BasicDrone(position_to_add1, direction_to_add1, obj1, 0, manager, new ParabolicPathfinder());
       //Object 2
       JsonHelper::AddStringToJsonObject(obj2, "name", "drone");
       JsonHelper::AddStringToJsonObject(obj2, "type", "drone");
@@ -41,7 +42,7 @@ class DroneTest: public ::testing::Test {
       direction_to_add2.push_back(1);
       direction_to_add2.push_back(0);
       JsonHelper::AddStdFloatVectorToJsonObject(obj2, "direction", direction_to_add2);
-      entity2 = new Drone(position_to_add2, direction_to_add2, obj2, 1, manager, new ParabolicPathfinder());
+      entity2 = new BasicDrone(position_to_add2, direction_to_add2, obj2, 1, manager, new ParabolicPathfinder());
       //Object 3
       JsonHelper::AddStringToJsonObject(obj3, "name", "drone");
       JsonHelper::AddStringToJsonObject(obj3, "type", "drone");
@@ -54,7 +55,7 @@ class DroneTest: public ::testing::Test {
       direction_to_add3.push_back(263.32);
       direction_to_add3.push_back(12.01);
       JsonHelper::AddStdFloatVectorToJsonObject(obj3, "direction", direction_to_add3);
-      entity3 = new Drone(position_to_add3, direction_to_add3, obj3, 2, manager, new ParabolicPathfinder());
+      entity3 = new BasicDrone(position_to_add3, direction_to_add3, obj3, 2, manager, new ParabolicPathfinder());
     }
 
     virtual void TearDown(){
@@ -76,7 +77,7 @@ class DroneTest: public ::testing::Test {
     SimpleDeliveryManager* manager;
 };
 
-TEST_F(DroneTest, ConstructorTest){
+TEST_F(BasicDroneTest, ConstructorTest){
   //GetID
   EXPECT_EQ(entity1->GetId(),0);
   EXPECT_EQ(entity2->GetId(),1);
