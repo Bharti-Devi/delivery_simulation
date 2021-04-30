@@ -8,6 +8,7 @@
  * Includes
  ******************************************************************************/
 #include "entity_base.h"
+#include "customer.h"
 #include <vector>
 #include <string>
 
@@ -125,6 +126,18 @@ class Package : public EntityBase {
         * Sets travelStatus to false and deliveryStatus to true.
         */
         virtual void Delivered() = 0;
+
+        /**
+         * @brief Returns Customer to be delivered to, if assigned; else NULL.
+         */
+        virtual Customer* GetCustomer() = 0;
+
+        /**
+         * @brief Sets Customer to be delivered to.
+         * 
+         * @param customer Customer to be delivered to.
+         */
+        virtual void SetCustomer(Customer *customer) = 0;
 };
 
 }//namespace csci3081

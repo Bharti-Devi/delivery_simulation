@@ -8,8 +8,11 @@
  * Includes
  ******************************************************************************/
 #include "entity_base.h"
+#include "customer.h"
 #include "package.h"
+#include <limits>
 #include <vector>
+#include <map>
 #include <string>
 
 namespace csci3081 {
@@ -22,6 +25,7 @@ namespace csci3081 {
  * Stores information on a specific Package object.
  */
 class PackageColorDecorator : public Package {
+
     public:
         /**
         * @brief Constructor: sets up Package by instantiating all of its values.
@@ -143,8 +147,44 @@ class PackageColorDecorator : public Package {
         */
         void Delivered() override;
 
+        /**
+         * @brief Returns Customer to be delivered to, if assigned; else NULL.
+         */
+        Customer* GetCustomer() override;
+
+        /**
+         * @brief Sets Customer to be delivered to.
+         * 
+         * @param customer Customer to be delivered to.
+         */
+        void SetCustomer(Customer *customer) override;
+
+        /**
+	     * @brief Set some key in the details of the entity
+	     * 
+	     * @param key Key to set
+	     * 
+	     * @param value Value to set key to
+	     */
+	    void SetDetailsKey(const std::string& key, const picojson::value& value);
+
+	    /**
+	     * @brief Notify all observers that the details of this entity have changed
+	     */
+	    void NotifyDetailsUpdate();
+
     private:
         Package *package;
+        const std::map<double, picojson::value> colorMap =
+        {
+            { 0.00, picojson::value("0x0000ff") }, // blue if not scheduled
+            { 0.25, picojson::value("0x00ff00") }, // green if 0-25% of maximum distance
+            { 0.50, picojson::value("0xffff00") }, // yellow if 25-50%
+            { 0.75, picojson::value("0xffa500") }, // orange if 50-75%
+            { std::numeric_limits<double>::infinity(), picojson::value("0xff0000") }  // red if more than 75%
+        };
+        std::map<double, picojson::value>::const_iterator currentColor;
+        double maxDistance;
 };
 
 }//namespace csci3081

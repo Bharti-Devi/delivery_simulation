@@ -15,6 +15,7 @@ void SimpleDeliveryManager::ScheduleDelivery(IEntity* package_, IEntity* dest_) 
     }
 
     deliveriesToAssign.push_back(new DeliveryObject(package, customer));
+    package->SetCustomer(customer);
 }
 
 DeliveryObject* SimpleDeliveryManager::GetWork(DeliveryVehicle* deliveryVehicle) {
