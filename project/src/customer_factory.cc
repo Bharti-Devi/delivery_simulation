@@ -1,6 +1,6 @@
 #include "customer_factory.h"
 #include "json_helper.h"
-#include "customer.h"
+#include "basic_customer.h"
 #include "customer_color_decorator.h"
 
 namespace csci3081 {
