@@ -20,13 +20,26 @@ CustomerColorDecorator::~CustomerColorDecorator()	{
 void CustomerColorDecorator::Update(float dt)	{
 	customer->Update(dt);
 
-	// TODO: add dt to time var
+	// Increment timer by dt for each update
 	timer += dt;
 
-	// TODO: change to red
+	// Change color to yellow if waiting for less than 25 "seconds"
+	if (timer < 25.0)	{
+		SetDetailsKey("color", picojson::value("0xffff00"));
+		NotifyDetailsUpdate();
+	}
 
-    // cout time var
-    std::cout << "Time: " << timer << "\n" << std::endl;
+	// Change color to orange if waiting for less than 50 "seconds"
+	else if (timer < 50)	{
+		SetDetailsKey("color", picojson::value("0xffa500"));
+		NotifyDetailsUpdate();
+	}
+
+	// Change color to red if waiting for more than 50 "seconds"
+	else	{
+		SetDetailsKey("color", picojson::value("0xff0000"));
+		NotifyDetailsUpdate();
+	}
 }
 
 const picojson::object& CustomerColorDecorator::GetDetails() {
