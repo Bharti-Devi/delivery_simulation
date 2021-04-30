@@ -21,7 +21,7 @@
 * 
 * # Program Design #
 *
-* \image html "Iteration2UML.png" width=1000in
+* \image html "Iteration3UML.png" width=1000in
 *
 * The design of the program starts with the DeliverySimulation class. The Delivery Simulation class runs the simulation by using 
 * the other program classes to change values of different objects in the simulation. 
@@ -54,12 +54,12 @@
 * from the observers_ list in DeliverySimulation.
 * 
 * 
-* The DeliverySimulation does schedules a delivery. It does this by creating a DeliveryObject from a Package and a Customer in its 
+* The DeliverySimulation schedules a delivery. It does this by creating a DeliveryObject from a Package and a Customer in its 
 * entities_ list and then picks a DeliveryVehicle (either a Drone or a Robot) to be assigned the delivery. Finally, as the simulation 
 * is running it calls Update on every DeliveryVehicle in its entities_ list which makes the DeliveryVehicle use the DeliveryObject to 
 * complete the delivery.
 * 
-* 
+* # Iteration 1 #
 * 
 * # Concrete vs. Abstract vs. Composite Factory Design #
 *
@@ -111,6 +111,7 @@
 * planned for the project as not only is polymorphism extremely important but we will be adding more object types that inherit 
 * from IEntity so having less work to do to add these objects is extremely important.
 *
+* # Iteration 2 #
 *
 * # Designing and Implementing the different routes #
 * For designing and implementing the different routes we decided to use the Strategy Design as discussed in chapter 1 of the Head 
@@ -207,5 +208,70 @@
 * # Observer Pattern Discussion
 *
 * The observer pattern in our program is functional for packages, drones, and robots.
+*
+*
+* # Iteration 3 #
+*
+* ## New Features: ##
+* The new feature we decided to implement for the third iteration was the color changing feature. We chose this feature as we thought 
+* that it would be fun to have the IEntities change colors especially the customer as they get angrier. In order to implement the 
+* feature, we discussed how we would do it, one of the ideas we had was to implement the color changing code directly into the 
+* update functions, however that would break the Open-Closed Principle. We eventually decided to use the Decorator pattern due to 
+* its advantages over other strategies for implementing a color changer.
+*
+* \image html "DecoratorUML.png" width=750in
+*
+* One of these advantages is that it follows the Open-Closed Principle. Other methods of implementing color changing would involve 
+* directly changing the update methods of the entity types. The problem with this is that if you wanted multiple different ways an 
+* object can change its colors, for example rather then delivery objects changing based on battery charge, have them change color 
+* based on distance, you would have to make a new class and that is a clone of the delivery object and change the code of it to do 
+* the other thing. Rather then go through this process the decorator pattern allows you to simply make a new decorator class to 
+* attach to the already existing delivery object which will deal with the color changing only. Not modifying the already existing 
+* code. 
+* ### Angry Customer: ###
+*	For this first decorator we had it change the color of the customer according to how far away the package is, as the package 
+* gets closer the customer gets angry. For the angry customer their were many issues with circular includes, however eventually 
+* using forward declares the issue was solved.
+* ### Battery Power: ###
+* 	For this decorator we had it change the color of the delivery vehicles according to the battery power left in the drone. As 
+* the battery drains it switches to yellow then red. There were issues with getting get details and the color to show up on the 
+* terminal, however changing the drones GetDetails() the problem was able to be fixed.
+* ### Closeness to Delivery: ###
+*	For this final decorator we had it change the color from red to green as the package gets closer to the customer. A difficult 
+* part of setting up the Package decorator, was dealing with the GetDetails() as forgetting to have the decorator call the 
+* packages GetDetails() for its get details causes weird problems for the simulation, so it was difficult to find the mistake and 
+* fix it. 
+* ## Iteration 3 Team Documentation: ##
+* ### Meeting 1: 4/22 ###
+* Everyone was present.
+* For our first meeting for the third implementation we went over which features we wanted to implement for this last section of 
+* the project, and how we would split up the work. What we eventually ended up deciding was that we would implement three different 
+* decorators that would allow for the different entities to change colors based on what was going on. The three that we decided to
+* implement were the customer would change color as more time passed without having the package to simulate anger, the package 
+* changing color as it got closer to the customer, and the battery changing color as the delivery_object’s battery power gets 
+* lower. We then discussed later meeting times for the rest of the iteration.
+* #### Angry Customer: Viara Milenova #####
+* #### Battery Power: Bharti Devi ####
+* #### Closeness to Delivery: Oliver Cuzzourt ####
+* #### Documentation/GoogleTests: James Eichstaedt ####
+* ### Meeting 2: 4/27 ###
+* Everyone was present.
+* For our second meeting we first went over how everyone was doing for their section of the project and discussed finishing the 
+* programming by Thursday night in order to allow time for the documentation to be complete. We also discussed possible changes 
+* to older code to allow for easier implementation of the decorator pattern to allow for the changing of colors for the IEntity 
+* objects. We decided to implement the change to entity base to move the observer list to be included in its code rather then in 
+* its children to allow for better abstraction when dealing with the Decorator pattern. Once we were done discussing 
+* implementation three, we went on to discuss our final presentation, choosing and signing up for Tuesday the 4th. We decided
+* that we would discuss the presentation further at the next meeting.
+* ### Meeting 3: 4/30 ###
+* Everyone was present.
+* For our third and final meeting for this implementation we went over last checks including the UML and the documentation.
+* Firstly we talked about issues with the code and ways to solve them, mainly how to fix the circular issues in the implementation
+* of Angry customer. After this we went over our plans for when we would get the presentation done and concluded that we would
+* meet up some time on Sunday to work on the presentation together.
+*
+* ### What to Test On ###
+* Please Test on scenes/umn.json and in order to better see the battery depletion causing the color change 
+* scenes/drone_low_battery_a.json
 *
 */
