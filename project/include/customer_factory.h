@@ -24,6 +24,7 @@ class CustomerFactory : public IEntityFactory{
         * @brief Constructor: sets up CustomerFactory by instantiating all of its values.
         */
         CustomerFactory();
+
         /**
         * @brief Creates a Customer entity and returns it as an IEntity*
         * 
@@ -35,6 +36,7 @@ class CustomerFactory : public IEntityFactory{
         * @return IEntity* object.
         */
         IEntity* CreateEntity(const picojson::object& obj);
+        
     private:
         int entityCount;
 };
