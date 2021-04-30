@@ -71,7 +71,7 @@ class DeliveryVehicle : public EntityBase {
          * or dropped off.
          * 
          * @param event Event as a string that indicates which notification to send.
-         * @param package Vehicle Entity .
+         * @param package Package Entity .
          */
         static void NotifyPackage(std::string event, IEntity* package);
 
@@ -91,7 +91,17 @@ class DeliveryVehicle : public EntityBase {
          * @param path Vector for vehicle's path
          */
         static void NotifyMovingVehicle(std::string event, IEntity* vehicle, std::vector<std::vector<float>> path);
-};
+
+        /**
+         * @brief Notifies observers that the details_ object in drone has been updated
+         * 
+         * @param event Event as a string that indicates which notification to send.
+         * @param vehicle Vehicle Entity.
+         * @param details picojson object storing the entity details
+         */
+        static void NotifyBatteryColor(std::string event, IEntity* vehicle, picojson::object& details);
+        
+        };
 
 }  // namespace csci3081
 

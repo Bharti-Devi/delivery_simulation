@@ -5,6 +5,10 @@ namespace csci3081 {
 
 PackageColorDecorator::PackageColorDecorator(Package *package) {
     this->package = package;
+    maxDistance = -1.0;
+    currentColor = colorMap.begin();
+    package->SetDetailsKey("color", currentColor->second);
+    NotifyDetailsUpdate();
 }
 
 PackageColorDecorator::~PackageColorDecorator() {
@@ -13,7 +17,26 @@ PackageColorDecorator::~PackageColorDecorator() {
 
 void PackageColorDecorator::Update(float dt) {
     package->Update(dt);
-    
+
+    if (GetCustomer() == nullptr) {
+        return;
+    }
+
+    // Find current distance to customer
+    Vector3D packagePosition = GetVectorPosition();
+    Vector3D customerPosition = GetCustomer()->GetVectorPosition();
+    Vector3D difference = packagePosition - customerPosition;
+    double distance = difference.Magnitude();
+
+    // Calculate proportion of max distance, determine if color change is necessary, and notify observers if so
+    maxDistance = (distance > maxDistance) ? distance : maxDistance;
+    double proportionOfMaxDistance = distance / maxDistance;
+    auto newColor = colorMap.upper_bound(proportionOfMaxDistance);
+    if (currentColor != newColor) {
+        currentColor = newColor;
+        SetDetailsKey("color", currentColor->second);
+        NotifyDetailsUpdate();
+    }
 }
 
 int PackageColorDecorator::GetId() const {
@@ -74,6 +97,22 @@ void PackageColorDecorator::SetTraveling(bool isTraveling)    {
 
 void PackageColorDecorator::Delivered()   {
     package->Delivered();
+}
+
+Customer* PackageColorDecorator::GetCustomer() {
+    return package->GetCustomer();
+}
+
+void PackageColorDecorator::SetCustomer(Customer *customer) {
+    package->SetCustomer(customer);
+}
+
+void PackageColorDecorator::SetDetailsKey(const std::string& key, const picojson::value& value) {
+    package->SetDetailsKey(key, value);
+}
+
+void PackageColorDecorator::NotifyDetailsUpdate() {
+    package->NotifyDetailsUpdate();
 }
 
 } //namespace csci3081

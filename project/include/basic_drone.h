@@ -1,8 +1,8 @@
 /**
- *@file drone.h
+ *@file basic_drone.h
  */
-#ifndef DRONE_H_
-#define DRONE_H_
+#ifndef BASIC_DRONE_H_
+#define BASIC_DRONE_H_
 
 /*******************************************************************************
  * Includes
@@ -12,6 +12,7 @@
 #include "delivery_manager.h"
 #include "battery.h"
 #include "pathfinder.h"
+#include "drone.h"
 #include <vector>
 #include <string>
 
@@ -26,76 +27,80 @@ namespace csci3081 {
  * Stores information on a specific Drone object.
  */
 
-class Drone : public DeliveryVehicle {
+class BasicDrone : public Drone {
 public:
+  /**
+   * @brief Constructor: sets up Drone by instantiating all of its values.
+   */
+  BasicDrone(std::vector<float> pos, std::vector<float> direction, const picojson::object& obj, int id, DeliveryManager* manager, Pathfinder* strategy);
+  
   /**
    * @brief Destructor: deletes all allocated values.
    */
-  virtual ~Drone() {};
-
+  ~BasicDrone();
+  
   /**
   * @brief Gets the id of the drone.
   *
   * @return Id value.
   */
-  virtual int GetId() const = 0;
-
+ int GetId() const override;
+  
   /**
   * @brief Gets the name of the drone.
   *
   * @return Name value.
   */
-  virtual const std::string& GetName() = 0;
+  const std::string& GetName() override;
 
   /**
   * @brief Gets the position of the drone.
   *
   * @return Position vector.
   */
-  virtual const std::vector<float>& GetPosition() const = 0;
+  const std::vector<float>& GetPosition() const override;
 
   /**
   * @brief Gets the direction of the drone.
   *
   * @return Direction vector.
   */
-  virtual const std::vector<float>& GetDirection() const = 0;
+  const std::vector<float>& GetDirection() const override;
 
   /**
   * @brief Gets the position of the drone as a Vector3D object pointer.
   *
   * @return Vector3D for position.
   */
-
-  virtual Vector3D GetVectorPosition() = 0;
+  Vector3D GetVectorPosition() override;
 
   /**
   * @brief Returns the direction of the drone as a Vector3D object pointer.
   *
   * @return Vector3D for direction.
   */
-  virtual Vector3D GetVectorDirection() = 0;
+  Vector3D GetVectorDirection() override;
 
   /**
   * @brief Gets the radius of the drone.
   *
   * @return Radius value.
   */
-  virtual float GetRadius() const = 0;
+  float GetRadius() const override;
 
   /**
   * @brief Gets the version of the drone.
   *
   * @return Version value.
   */
-  virtual int GetVersion() const = 0;
+  int GetVersion() const override;
 
   /**
   * @brief Checks if the drone is dynamic or not.
   *
   * @return True or false.
   */
-  virtual bool IsDynamic() const = 0;
+  bool IsDynamic() const override;
 
   /**
   * @brief updates the robots location based on dt, its speed, and
@@ -116,19 +121,19 @@ public:
   *
   * @param dt Derivative.
   */
-  virtual void Update(float dt) = 0;
+  void Update(float dt) override;
 
   /**
    * @brief Checks if the drone can pickup the package by calling PickUp()
    * on the DeliveryObject delivery.
    */
-  virtual void PickUp() = 0;
+  void PickUp() override;
 
   /**
    * @brief Checks if the drone can dropoff the package by calling DropOff()
    * on the DeliveryObject delivery.
    */
-  virtual void DropOff() = 0;
+  void DropOff() override;
 
   /**
    * @brief Gets the charge of the drones battery by calling 
@@ -136,14 +141,14 @@ public:
    *
    * @return Battery charge value.
    */
-  virtual int GetCharge() = 0;
+  int GetCharge() override;
 
   /**
    * @brief Sets the DeliveryObject* delivery to the given pointer.
    * 
    * @param delivery DeliveryObject*.
    */
-  virtual void SetDeliveryObject(DeliveryObject* delivery) = 0;
+  void SetDeliveryObject(DeliveryObject* delivery) override;
 
   /**
    * @brief Checks if the drone has been scheduled for a delivery
@@ -151,7 +156,7 @@ public:
    * 
    * @return True or false.
    */
-  virtual bool IsScheduled() = 0;
+  bool IsScheduled() override;
 
   /**
    * @brief Checks if the drone has a package in its possession
@@ -159,11 +164,28 @@ public:
    * 
    * @return True or false.
    */
+  bool DoesHavePackage() override;
 
-  virtual bool DoesHavePackage() = 0;
+private:
+    std::vector<float> position;
+    std::vector<float> direction;
+    std::vector<float> destination;
+    Vector3D* vectorPosition;
+    Vector3D* vectorDirection;
+    DeliveryObject* delivery;
+    Battery battery;
+    std::string name;
+    float speed;
+    int id;
+    bool hasPackage;
+    bool scheduled;
+    DeliveryManager* manager;
+    std::vector< std::vector<float> > packagePath;
+    std::vector< std::vector<float> > customerPath;
+    Pathfinder* strategy;
     
 };
 
 }  // namespace csci3081
 
-#endif    // DRONE_H_
+#endif    // BASIC_DRONE_H_

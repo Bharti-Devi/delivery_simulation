@@ -19,4 +19,20 @@ void EntityBase::Detach(IEntityObserver* observer) {
   }
 }
 
+void EntityBase::SetDetailsKey(const std::string& key, const picojson::value& value) {
+  details_[key] = value;
+}
+
+void EntityBase::NotifyDetailsUpdate() {
+  //call OnEvent for package and send package notifications
+  picojson::object notification_builder = JsonHelper::CreateJsonNotification();
+  notification_builder["value"] = picojson::value("updateDetails");
+  notification_builder["details"] = picojson::value(GetDetails()); // Do NOT change GetDetails() to details_
+  picojson::value notification_to_send = picojson::value(notification_builder);
+    
+  for (IEntityObserver *observer : observers) {
+    observer->OnEvent(notification_to_send, *this);
+	}
+}
+
 }

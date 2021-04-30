@@ -1,10 +1,10 @@
-#include "drone.h"
+#include "basic_drone.h"
 #include "json_helper.h"
 #include <iostream>
 
 namespace csci3081 {
 
-Drone::Drone(std::vector<float> pos, std::vector<float> direction, const picojson::object& details, 
+BasicDrone::BasicDrone(std::vector<float> pos, std::vector<float> direction, const picojson::object& details, 
             int id, DeliveryManager* manager, Pathfinder* strategy) {
   this->position = pos;
   this->direction = direction;
@@ -31,56 +31,60 @@ Drone::Drone(std::vector<float> pos, std::vector<float> direction, const picojso
   // The following line saves the json object in the details_ member variable
   // from the EntityBase class, in order to return it later in GetDetails()
   details_ = details;
+
+  JsonHelper::AddValueToJsonObject(details_, "color",  picojson::value("0x00ff00"));
+  NotifyBatteryColor("updateDetails", this, details_);
+
 }
 
-Drone::~Drone() {
+BasicDrone::~BasicDrone() {
   delete vectorPosition;
   delete vectorDirection;
 }
 
-int Drone::GetId() const {
+int BasicDrone::GetId() const {
   return id;
 }
 
-const std::string& Drone::GetName() {
+const std::string& BasicDrone::GetName() {
   return name;
 }
 
-const std::vector<float>& Drone::GetPosition() const {
+const std::vector<float>& BasicDrone::GetPosition() const {
   return position;
 }
 
-const std::vector<float>& Drone::GetDirection() const {
+const std::vector<float>& BasicDrone::GetDirection() const {
   return direction;
 }
 
-Vector3D Drone::GetVectorPosition() {
+Vector3D BasicDrone::GetVectorPosition() {
   return *vectorPosition;
 }
 
-Vector3D Drone::GetVectorDirection()  {
+Vector3D BasicDrone::GetVectorDirection()  {
  return *vectorDirection;
 }
 
-float Drone::GetRadius() const {
+float BasicDrone::GetRadius() const {
   // TODO: This is just a stub for compilation
   // Currently not in use.
   return 1;
 }
 
-int Drone::GetVersion() const {
+int BasicDrone::GetVersion() const {
   // TODO: This is just a stub for compilation
   // Currently not in use.
   return 0;
 }
 
-bool Drone::IsDynamic() const {
+bool BasicDrone::IsDynamic() const {
   // TODO: This is just a stub for compilation
   // Currently not in use.
   return true;
 }
 
-void Drone::Update(float dt)  {
+void BasicDrone::Update(float dt) {
 
   // Ensure that this drone has some work to do. If not, return immediately.
   if (!scheduled) {
@@ -231,34 +235,34 @@ void Drone::Update(float dt)  {
   return;
 }
 
-void Drone::PickUp()  {
+void BasicDrone::PickUp()  {
   if (delivery->PickUp(position)) {
     hasPackage = true;
   }
 }
 
-void Drone::DropOff() {
+void BasicDrone::DropOff() {
   if (delivery->DropOff(position)) {
     hasPackage = false;
     scheduled = false;
   }
 }
 
-int Drone::GetCharge()  {
+int BasicDrone::GetCharge()  {
   return battery.GetCurCharge();
 }
 
-void Drone::SetDeliveryObject(DeliveryObject* delivery) {
+void BasicDrone::SetDeliveryObject(DeliveryObject* delivery) {
   this->delivery = delivery;
   this->packagePath = strategy->GetPath(delivery->GetPackagePosition(), position);
   this->customerPath = strategy->GetPath(delivery->GetCustomerPosition(), delivery->GetPackagePosition());
   scheduled = true;
 }
 
-bool Drone::IsScheduled() {
+bool BasicDrone::IsScheduled() {
   return scheduled;
 }
-bool Drone::DoesHavePackage() {
+bool BasicDrone::DoesHavePackage() {
   return hasPackage;
 }
 
