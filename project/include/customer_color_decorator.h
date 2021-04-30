@@ -11,7 +11,6 @@
 #include "customer.h"
 #include <vector>
 #include <string>
-#include <ctime>
 
 namespace csci3081 {
 /*******************************************************************************
@@ -37,6 +36,13 @@ class CustomerColorDecorator : public Customer  {
          * @brief Update Customer by coloring based on wait time for package
          */
         void Update(float dt) override; 
+
+        /**
+         * @brief Gets the details of the customer.
+        *
+        * @return Details.
+         */
+        const picojson::object& GetDetails() override;
 
         /**
         * @brief Gets the id of the customer.
@@ -100,6 +106,15 @@ class CustomerColorDecorator : public Customer  {
         * @return Version.
         */
         int GetVersion() const override;
+
+        /**
+         * @brief Set some key in the details of the entity
+         * 
+         * @param key Key to set
+         * 
+         * @param value Value to set key to
+         */
+        void SetDetailsKey(const std::string& key, const picojson::value& value);
         
         /**
         * @brief Checks if customer is dynamic or not.
@@ -115,10 +130,21 @@ class CustomerColorDecorator : public Customer  {
         */
         void RecievePackage() override;
 
+        /**
+         * @brief Returns Drone to be tracked.
+         */
+        Package* GetPackage() override;
+
+        /**
+         * @brief Sets Drone to be tracked.
+         * 
+         * @param drone Drone.
+         */
+        void SetPackage(Package* package) override;
+
     private:
         Customer *customer;
-        std::clock_t timer_start;
-        std::clock_t timer_end;
+        double maxDistance;
 };
 
 }//namespace csci3081

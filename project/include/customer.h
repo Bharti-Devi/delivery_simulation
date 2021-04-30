@@ -11,8 +11,9 @@
 #include <vector>
 #include <string>
 
-
 namespace csci3081 {
+
+class Package;
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
@@ -106,6 +107,19 @@ class Customer : public EntityBase {
         * Done when a customer recieves a package.
         */
         virtual void RecievePackage() = 0;
+
+        /**
+         * @brief Returns Drone to track.
+         */
+        virtual Package* GetPackage() = 0;
+
+        /**
+         * @brief Sets Drone to track.
+         * 
+         * @param drone Drone.
+         */
+        virtual void SetPackage(Package *package) = 0;
+
 };
 
 }//namespace csci3081

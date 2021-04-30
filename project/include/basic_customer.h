@@ -22,8 +22,8 @@ namespace csci3081 {
  *
  * Stores information on a specific Customer object.
  */
-
 class BasicCustomer : public Customer {
+
 public:
   /**
    * @brief Constructor: sets up Customer by instantiating all of its values.
@@ -57,6 +57,18 @@ public:
 
   void RecievePackage() override;
 
+  /**
+   * @brief Returns Drone to track.
+   */
+  Package* GetPackage() override;
+
+  /**
+   * @brief Sets Drone to track.
+   * 
+   * @param drone Drone.
+   */
+  void SetPackage(Package* package) override;
+
 private:
     std::vector<float> position;
     std::vector<float> direction;
@@ -64,6 +76,7 @@ private:
     Vector3D* vectorDirection;
     std::string name;
     bool havePackage;
+    Package* package;
     int id;
     
 };

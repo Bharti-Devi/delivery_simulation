@@ -65,4 +65,12 @@ void BasicCustomer::RecievePackage()   {
     havePackage = true;
 }
 
+Package* BasicCustomer::GetPackage()    {
+    return package;
+}
+
+void BasicCustomer::SetPackage(Package* package)  {
+    this->package = package;
+}
+
 }//namespace csci3081

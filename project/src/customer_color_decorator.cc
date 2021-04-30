@@ -1,10 +1,15 @@
 #include "customer_color_decorator.h"
 #include "json_helper.h"
+#include "package.h"
 
 namespace csci3081	{
 
 CustomerColorDecorator::CustomerColorDecorator(Customer *customer)	{
 	this->customer = customer;
+
+	// Initialize customer color to red because package is far
+	SetDetailsKey("color", picojson::value("0xff0000"));
+	NotifyDetailsUpdate(); 
 }
         
 CustomerColorDecorator::~CustomerColorDecorator()	{
@@ -12,25 +17,33 @@ CustomerColorDecorator::~CustomerColorDecorator()	{
 }
         
 void CustomerColorDecorator::Update(float dt)	{
-	// Initialize timer
-	timer_start = std::clock();
-
 	customer->Update(dt);
 
-    // Check wait time
-    // Determine if color change is necessary, and notify observers if so
-	timer_end = std::clock();
+	// Find current distance to package
+    Vector3D customerPosition = GetVectorPosition();
+    Vector3D packagePosition = GetPackage()->GetVectorPosition();
+    Vector3D difference = packagePosition - customerPosition;
+    double distance = difference.Magnitude();
 
-	// Customer goes red if waiting a long time
-	if (( (timer_end - timer_start) / (double) CLOCKS_PER_SEC) > 15)	{
-		details_["color"] = picojson::value("0xff0000");
+    // Calculate proportion of max distance, determine if color change is necessary, and notify observers if so
+    maxDistance = (distance > maxDistance) ? distance : maxDistance;
+    double proportionOfMaxDistance = distance / maxDistance;
+
+    // Turn green if less than 25% away
+    if (proportionOfMaxDistance < 0.25)	{
+		SetDetailsKey("color", picojson::value("0x00ff00"));
 		NotifyDetailsUpdate();
 	}
-	// Customer goes blue if waiting a while
-	else if (( (timer_end - timer_start) / (double) CLOCKS_PER_SEC) > 7)	{
-		details_["color"] = picojson::value("0x0000ff");
+
+	// Turn blue if less than 50% away
+	else if (proportionOfMaxDistance < 0.5)	{
+		SetDetailsKey("color", picojson::value("0x0000ff"));
 		NotifyDetailsUpdate();
 	}
+}
+
+const picojson::object& CustomerColorDecorator::GetDetails() {
+    return customer->GetDetails();
 }
 
 int CustomerColorDecorator::GetId() const	{
@@ -69,12 +82,24 @@ int CustomerColorDecorator::GetVersion() const	{
 	return customer->GetVersion();
 }
 
+void CustomerColorDecorator::SetDetailsKey(const std::string& key, const picojson::value& value) {
+    customer->SetDetailsKey(key, value);
+}
+
 bool CustomerColorDecorator::IsDynamic() const	{
 	return customer->IsDynamic();
 }
 
 void CustomerColorDecorator::RecievePackage()	{
 	customer->RecievePackage();
+}
+
+Package* CustomerColorDecorator::GetPackage()	{
+	return customer->GetPackage();
+}
+
+void CustomerColorDecorator::SetPackage(Package* package)	{
+	customer->SetPackage(package);
 }
 
 }
