@@ -69,6 +69,7 @@ bool DeliveryObject::DropOff(std::vector<float> pos)    {
         temp[1] = -999;
         package->SetPosition(temp);
         package->Delivered();
+        customer->RecievePackage();
         // std::cout<<"dropped"<< std::endl;
         return true;
     }

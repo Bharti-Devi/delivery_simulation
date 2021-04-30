@@ -1,14 +1,13 @@
 #include "customer_color_decorator.h"
 #include "json_helper.h"
-#include "package.h"
 
 namespace csci3081	{
 
 CustomerColorDecorator::CustomerColorDecorator(Customer *customer)	{
 	this->customer = customer;
 
-	// Initialize customer color to red because package is far
-	SetDetailsKey("color", picojson::value("0xff0000"));
+	// Initialize customer color to green
+	SetDetailsKey("color", picojson::value("0x00ff00"));
 	NotifyDetailsUpdate(); 
 }
         
@@ -19,27 +18,11 @@ CustomerColorDecorator::~CustomerColorDecorator()	{
 void CustomerColorDecorator::Update(float dt)	{
 	customer->Update(dt);
 
-	// Find current distance to package
-    Vector3D customerPosition = GetVectorPosition();
-    Vector3D packagePosition = GetPackage()->GetVectorPosition();
-    Vector3D difference = packagePosition - customerPosition;
-    double distance = difference.Magnitude();
+	// TODO: add dt to time var
 
-    // Calculate proportion of max distance, determine if color change is necessary, and notify observers if so
-    maxDistance = (distance > maxDistance) ? distance : maxDistance;
-    double proportionOfMaxDistance = distance / maxDistance;
+	// TODO: change to red
 
-    // Turn green if less than 25% away
-    if (proportionOfMaxDistance < 0.25)	{
-		SetDetailsKey("color", picojson::value("0x00ff00"));
-		NotifyDetailsUpdate();
-	}
-
-	// Turn blue if less than 50% away
-	else if (proportionOfMaxDistance < 0.5)	{
-		SetDetailsKey("color", picojson::value("0x0000ff"));
-		NotifyDetailsUpdate();
-	}
+    // cout time var
 }
 
 const picojson::object& CustomerColorDecorator::GetDetails() {
@@ -92,14 +75,8 @@ bool CustomerColorDecorator::IsDynamic() const	{
 
 void CustomerColorDecorator::RecievePackage()	{
 	customer->RecievePackage();
-}
-
-Package* CustomerColorDecorator::GetPackage()	{
-	return customer->GetPackage();
-}
-
-void CustomerColorDecorator::SetPackage(Package* package)	{
-	customer->SetPackage(package);
+	// TODO: change color back to green
+	// TODO: change time back to 0
 }
 
 }

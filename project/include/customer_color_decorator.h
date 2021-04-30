@@ -13,6 +13,7 @@
 #include <string>
 
 namespace csci3081 {
+
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
@@ -130,21 +131,9 @@ class CustomerColorDecorator : public Customer  {
         */
         void RecievePackage() override;
 
-        /**
-         * @brief Returns Drone to be tracked.
-         */
-        Package* GetPackage() override;
-
-        /**
-         * @brief Sets Drone to be tracked.
-         * 
-         * @param drone Drone.
-         */
-        void SetPackage(Package* package) override;
-
     private:
         Customer *customer;
-        double maxDistance;
+        float timer;
 };
 
 }//namespace csci3081

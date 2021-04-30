@@ -57,18 +57,6 @@ public:
 
   void RecievePackage() override;
 
-  /**
-   * @brief Returns Drone to track.
-   */
-  Package* GetPackage() override;
-
-  /**
-   * @brief Sets Drone to track.
-   * 
-   * @param drone Drone.
-   */
-  void SetPackage(Package* package) override;
-
 private:
     std::vector<float> position;
     std::vector<float> direction;
@@ -76,7 +64,6 @@ private:
     Vector3D* vectorDirection;
     std::string name;
     bool havePackage;
-    Package* package;
     int id;
     
 };
