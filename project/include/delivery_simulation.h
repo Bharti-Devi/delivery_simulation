@@ -95,6 +95,7 @@ class DeliverySimulation : public IDeliverySystem {
   GetEntities should return all entities that have been ADDED to the system
   */
   const std::vector<IEntity*>& GetEntities() const;
+
   /**
   * @brief Calls Update() on ever drone object in the
   * entities list
