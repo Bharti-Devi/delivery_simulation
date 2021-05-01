@@ -230,8 +230,9 @@
 * code. 
 * ### Angry Customer: ###
 *	For this first decorator we had it change the color of the customer according to how far away the package is, as the package 
-* gets closer the customer gets angry. For the angry customer their were many issues with circular includes, however eventually 
-* using forward declares the issue was solved.
+* gets closer the customer gets angry. For the angry customer their were many issues figuring out the best thing to base the color
+* change on, this included package position, using the clock library, however eventually it was decided to use an iterator
+* that adds dt and changes based on that.
 * ### Battery Power: ###
 * 	For this decorator we had it change the color of the delivery vehicles according to the battery power left in the drone. As 
 * the battery drains it switches to yellow then red. There were issues with getting get details and the color to show up on the 
