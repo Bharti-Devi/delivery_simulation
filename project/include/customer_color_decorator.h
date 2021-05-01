@@ -18,45 +18,53 @@ namespace csci3081 {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief 
+ * @brief The main class for decorating a Customer.
+ *
+ * Customer changes color based on time spent waiting for package.
+ *
+ * Customer notifies observer that a color change has occurred.
  */
 class CustomerColorDecorator : public Customer  {
 
     public:
         /**
-        * @brief Constructor:
+        * @brief Constructor: Sets up CustomerColorDecorator.
+        * 
+        * @param customer Customer object.
         */
         CustomerColorDecorator(Customer *customer);
         
         /**
-        * @brief Destructor: 
+        * @brief Destructor: Deletes customer object.
         */
         ~CustomerColorDecorator();
         
         /**
-         * @brief Update Customer by coloring based on wait time for package
+         * @brief Update Customer by coloring based on wait time for package.
+         *
+         * @param dt Derivative.
          */
         void Update(float dt) override; 
 
         /**
          * @brief Gets the details of the customer.
-        *
-        * @return Details.
+         *
+         * @return Details.
          */
         const picojson::object& GetDetails() override;
 
         /**
-        * @brief Gets the id of the customer.
-        *
-        * @return Id as an int value.
-        */
+         * @brief Gets the id of the customer.
+         *
+         * @return Id as an int value.
+         */
         int GetId() const override;
 
         /**
-        * @brief Gets the name of the customer
-        *
-        * @return Name string.
-        */
+         * @brief Gets the name of the customer
+         *
+         * @return Name string.
+         */
         const std::string& GetName() override;
 
         /**
@@ -88,7 +96,7 @@ class CustomerColorDecorator : public Customer  {
         Vector3D GetVectorDirection() override;
         
         /**
-        * @brief Gets the radius of the customer
+        * @brief Gets the radius of the customer.
         *
         * @return Radius float value.
         */
@@ -109,11 +117,11 @@ class CustomerColorDecorator : public Customer  {
         int GetVersion() const override;
 
         /**
-         * @brief Set some key in the details of the entity
+         * @brief Set some key in the details of the entity.
          * 
-         * @param key Key to set
+         * @param key Key to set.
          * 
-         * @param value Value to set key to
+         * @param value Value to set key to.
          */
         void SetDetailsKey(const std::string& key, const picojson::value& value);
         
@@ -125,9 +133,7 @@ class CustomerColorDecorator : public Customer  {
         bool IsDynamic() const override;
         
         /**
-        * @brief Sets havePackage to true.
-        * 
-        * Done when a customer recieves a package.
+        * @brief Indicates that customer received package.
         */
         void RecievePackage() override;
 

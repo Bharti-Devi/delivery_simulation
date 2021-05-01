@@ -38,7 +38,7 @@ class Customer : public EntityBase {
         virtual int GetId() const = 0;
 
         /**
-        * @brief Gets the name of the customer
+        * @brief Gets the name of the customer.
         *
         * @return Name string.
         */
@@ -73,7 +73,7 @@ class Customer : public EntityBase {
         virtual Vector3D GetVectorDirection() = 0;
         
         /**
-        * @brief Gets the radius of the customer
+        * @brief Gets the radius of the customer.
         *
         * @return Radius float value.
         */
