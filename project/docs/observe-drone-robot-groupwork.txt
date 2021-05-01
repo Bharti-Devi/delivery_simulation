@@ -1,0 +1,6 @@
+April 2nd, 2021
+
+Worked with: Oliver Cuzzort
+
+Clarified where drone/robot begins movement in Update() because he implemented the majority of the Update() method.
+Helped figure out where drone/robot was idle in Update().
