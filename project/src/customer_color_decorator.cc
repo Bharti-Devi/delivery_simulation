@@ -92,11 +92,11 @@ bool CustomerColorDecorator::IsDynamic() const	{
 
 void CustomerColorDecorator::RecievePackage()	{
 	customer->RecievePackage();
-	// TODO: change color back to green
+	// Change color back to green
 	SetDetailsKey("color", picojson::value("0x00ff00"));
 	NotifyDetailsUpdate();
 
-	// TODO: change time back to 0
+	// Change timer back to 0
 	timer = 0;
 }
 
