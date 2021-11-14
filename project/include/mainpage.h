@@ -4,7 +4,7 @@
 *
 * Pull the files from the master branch of the GitHub repository and it will contain all of the files required to run the 
 * simulation. Once the files have been pulled from GitHub navigate to the <I>/project</I> folder in your terminal. This folder's path 
-* should look like <I>umn-csci-3081-s21/repo-iter2-<section>-<team>/project</I>.
+* should look like <I>Bharti-Devi/delivery_simulation/project</I>.
 * Next run the make command using the terminal and the files will compile. Once the files are compiled, to start the simulation 
 * run the command: <I>./bin/run.sh</I>. Once the simulation starts open your web browser and go to http://127.0.0.1:8081. 
 * The simulation should be running on your web browser from there and may take a few seconds to load all of the assets in. 
